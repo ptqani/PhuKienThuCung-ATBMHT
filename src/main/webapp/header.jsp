@@ -135,7 +135,7 @@
 			<!-- /.container -->
 
 		</div>
-		<!-- /.main-header -->
+		<!-- /.main-headers -->
 
 		<!-- ============================================== NAVBAR ============================================== -->
 		<div class="header-nav animate-dropdown">

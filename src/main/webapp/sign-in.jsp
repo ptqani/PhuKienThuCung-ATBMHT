@@ -44,14 +44,14 @@
 	<h4 class="">Sign in</h4>
 	<p class="">Hello, Welcome to your account.</p>
 	
-	<form class="register-form outer-top-xs" role="form">
+	<form class="register-form outer-top-xs" role="form" method="POST" action="login">
 		<div class="form-group">
 		    <label class="info-title" for="exampleInputEmail1">Email Address <span>*</span></label>
-		    <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1">
+		    <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1" name="email" required>
 		</div>
 	  	<div class="form-group">
 		    <label class="info-title" for="exampleInputPassword1">Password <span>*</span></label>
-		    <input type="password" class="form-control unicase-form-control text-input" id="exampleInputPassword1">
+		    <input type="password" class="form-control unicase-form-control text-input" id="exampleInputPassword1" name="password" required>
 		</div>
 		<div class="radio outer-xs">
 		  	<label>
@@ -62,38 +62,38 @@
 	  	<button type="submit" class="btn-upper btn btn-primary checkout-page-button">Login</button>
 	</form>					
 </div>
-<!-- Sign-in -->
+
+<!-- Sign-up -->
 
 <!-- create a new account -->
 <div class="col-md-6 col-sm-6 create-new-account">
-	<h4 class="checkout-subtitle">Create a new account</h4>
-	<p class="text title-tag-line">Create your new account.</p>
-	<form class="register-form outer-top-xs" role="form">
-		<div class="form-group">
-	    	<label class="info-title" for="exampleInputEmail2">Email Address <span>*</span></label>
-	    	<input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail2">
-	  	</div>
+    <h4 class="checkout-subtitle">Create a new account</h4>
+    <p class="text title-tag-line">Create your new account.</p>
+    <form class="register-form outer-top-xs" role="form" method="POST" action="register">
         <div class="form-group">
-		    <label class="info-title" for="exampleInputEmail1">Name <span>*</span></label>
-		    <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1">
-		</div>
+            <label class="info-title" for="email">Email Address <span>*</span></label>
+            <input type="email" name="email" class="form-control unicase-form-control text-input" id="email" required>
+        </div>
         <div class="form-group">
-		    <label class="info-title" for="exampleInputEmail1">Phone Number <span>*</span></label>
-		    <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1">
-		</div>
+            <label class="info-title" for="username">Name <span>*</span></label>
+            <input type="text" name="username" class="form-control unicase-form-control text-input" id="username" required>
+        </div>
         <div class="form-group">
-		    <label class="info-title" for="exampleInputEmail1">Password <span>*</span></label>
-		    <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1">
-		</div>
-         <div class="form-group">
-		    <label class="info-title" for="exampleInputEmail1">Confirm Password <span>*</span></label>
-		    <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1">
-		</div>
-	  	<button type="submit" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button>
-	</form>
-	
-	
-</div>	
+            <label class="info-title" for="phone">Phone Number <span>*</span></label>
+            <input type="tel" name="phone" class="form-control unicase-form-control text-input" id="phone" required>
+        </div>
+        <div class="form-group">
+            <label class="info-title" for="password">Password <span>*</span></label>
+            <input type="password" name="password" class="form-control unicase-form-control text-input" id="password" required>
+        </div>
+        <div class="form-group">
+            <label class="info-title" for="confirmPassword">Confirm Password <span>*</span></label>
+            <input type="password" name="confirmPassword" class="form-control unicase-form-control text-input" id="confirmPassword" required>
+        </div>
+        <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button>
+    </form>
+</div>
+
 <!-- create a new account -->			</div><!-- /.row -->
 		</div><!-- /.sigin-in-->
 		<!-- ============================================== BRANDS CAROUSEL ============================================== -->

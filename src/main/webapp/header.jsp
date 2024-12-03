@@ -115,6 +115,7 @@
 											<span class="text">Sub Total :</span><span class='price'>${sumprice}</span>
 										</div>
 										<div class="clearfix"></div>
+										
 										<a href="${pageContext.request.contextPath}/checkout.jsp"
 											class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
 									</div> <!-- /.cart-total-->

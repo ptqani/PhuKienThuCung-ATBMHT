@@ -26,9 +26,9 @@ public class CartServlet extends HttpServlet {
 		}
 
 		// thực hiện hành động và đặt URL thành trang thích hợp
-		String url = "/home.jsp";
+		String url = "/WEB-INF/home.jsp";
 		if (action.equals("shop")) {
-			url = "/home.jsp"; // trang chủ
+			url = "/WEB-INF/home.jsp"; // trang chủ
 		} else if (action.equals("cart")) {
 			String productCode = request.getParameter("productCode");
 			String quantityString = request.getParameter("quantity");
@@ -72,9 +72,9 @@ public class CartServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			session.setAttribute("cart", cart);
-			url = "shopping-cart.jsp";
+			url = "/WEB-INF/shopping-cart.jsp";
 		} else if (action.equals("checkout")) {
-			url = "checkout.jsp";
+			url = "/WEB-INF/checkout.jsp";
 		}
 
 		request.getRequestDispatcher(url).forward(request, response);

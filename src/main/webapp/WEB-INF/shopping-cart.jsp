@@ -59,7 +59,7 @@
 						<div class="shopping-cart-btn">
 							<span class="">
 								<a href="#" class="btn btn-upper btn-primary outer-left-xs">Continue Shopping</a>
-								<a href="#" class="btn btn-upper btn-primary pull-right outer-right-xs">Update shopping cart</a>
+					
 							</span>
 						</div><!-- /.shopping-cart-btn -->
 					</td>

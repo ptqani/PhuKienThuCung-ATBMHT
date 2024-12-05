@@ -11,10 +11,10 @@
 						<ul class="list-unstyled">
 							<li><a href="#"><i class="icon fa fa-user"></i>My
 									Account</a></li>
-							<li><a href="shopping-cart.jsp"><i class="icon fa fa-shopping-cart"></i>My
+							<li><a href="url?page=cart"><i class="icon fa fa-shopping-cart"></i>My
 									Cart</a></li>
-							<li><a href="${pageContext.request.contextPath}/checkout.jsp"><i class="icon fa fa-check"></i>Checkout</a></li>
-							<li><a href="${pageContext.request.contextPath}/sign-in.jsp"><i class="icon fa fa-lock"></i>Login</a></li>
+							<li><a href="url?page=checkout"><i class="icon fa fa-check"></i>Checkout</a></li>
+							<li><a href="url?page=login"><i class="icon fa fa-lock"></i>Login</a></li>
 						</ul>
 					</div>
 					<!-- /.cnt-account -->
@@ -164,13 +164,13 @@
 													<div class="row">
 														<div class="col-xs-12 col-menu">
 															<ul class="links">
-																<li><a href="${pageContext.request.contextPath}/home">Home</a></li>
+																<li><a href="home">Home</a></li>
 																<li><a href="detail.html">Detail</a></li>
-																<li><a href="${pageContext.request.contextPath}/shopping-cart.jsp">Shopping Cart
+																<li><a href="url?page=cart">Shopping Cart
 																	</a></li>
-																<li><a href="${pageContext.request.contextPath}/checkout.jsp">Checkout</a></li>
+																<li><a href="url?page=checkout">Checkout</a></li>
 																<li><a href="contact.html">Contact</a></li>
-																<li><a href="${pageContext.request.contextPath}/sign-in.jsp">Sign In</a></li>
+																<li><a href="url?page=login">Sign In</a></li>
 																<li><a href="${pageContext.request.contextPath}/404.jsp">404</a></li>
 															</ul>
 														</div>

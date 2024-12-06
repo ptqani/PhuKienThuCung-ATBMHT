@@ -116,7 +116,7 @@
 										</div>
 										<div class="clearfix"></div>
 										
-										<a href="${pageContext.request.contextPath}/checkout.jsp"
+										<a href="url?page=checkout"
 											class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
 									</div> <!-- /.cart-total-->
 

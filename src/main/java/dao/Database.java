@@ -23,6 +23,37 @@ public class Database {
 		// Kết nối tới cơ sở dữ liệu và trả về đối tượng Connection
 		return DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_thu_cung", "root", "123456");
 	}
+	// Phương thức lấy một sản phẩm theo ID
+	public Product getProductById(String itemId) throws ClassNotFoundException, SQLException {
+	    Product product = null;
+	    String select = "SELECT * FROM product WHERE id = ?"; // Truy vấn lấy sản phẩm theo ID
+
+	    // Kết nối và thực thi truy vấn
+	    try (Connection connection = getConnection();
+	         PreparedStatement preparedStatement = connection.prepareStatement(select)) {
+
+	        preparedStatement.setString(1, itemId); // Gán ID sản phẩm vào câu truy vấn
+	        ResultSet rs = preparedStatement.executeQuery();
+
+	        // Nếu tìm thấy sản phẩm, trả về đối tượng Product
+	        if (rs.next()) {
+	            product = new Product(
+	                rs.getInt(1), // ID sản phẩm
+	                rs.getString(2), // Tên sản phẩm
+	                rs.getString(3), // Mô tả
+	                rs.getDouble(4), // Giá
+	                rs.getString(5), // Loại
+	                rs.getString(6), // Hình ảnh
+	                rs.getString(7), // Thương hiệu
+	                rs.getInt(8), // Số lượng
+	                rs.getInt(9) // Trạng thái
+	            );
+	        }
+	    }
+
+	    return product; // Trả về sản phẩm nếu tìm thấy, nếu không trả về null
+	}
+
 	// Phương thức lấy tất cả sản phẩm theo danh mục
 	public List<Product> getProductsByCategory(int categoryId) throws ClassNotFoundException, SQLException {
 	    List<Product> list = new ArrayList<>();
@@ -186,7 +217,33 @@ public class Database {
 		}
 		return list;
 	}
+	// Phương thức lấy 6 sản phẩm ngẫu nhiên từ cơ sở dữ liệu
+		public List<Product> getRandomSixProducts() throws ClassNotFoundException, SQLException {
+			List<Product> list = new ArrayList<>();
+			String select = "SELECT * FROM product ORDER BY RAND() LIMIT 6";
 
+			// Kết nối và thực thi truy vấn
+			try (Connection connection = getConnection();
+					PreparedStatement preparedStatement = connection.prepareStatement(select)) {
+
+				ResultSet rs = preparedStatement.executeQuery();
+
+				// Duyệt qua kết quả và thêm vào danh sách sản phẩm
+				while (rs.next()) {
+					list.add(new Product(rs.getInt(1), // ID sản phẩm
+							rs.getString(2), // Tên sản phẩm
+							rs.getString(3), // Mô tả
+							rs.getDouble(4), // Giá
+							rs.getString(5), // Loại
+							rs.getString(6), // Hình ảnh
+							rs.getString(7), // Thương hiệu
+							rs.getInt(8), // Số lượng
+							rs.getInt(9) // Trạng thái
+					));
+				}
+			}
+			return list;
+		}
 	// Phương thức lấy 3 sản phẩm cũ nhất từ cơ sở dữ liệu
 	public List<Product> getOldThreeProducts() throws ClassNotFoundException, SQLException {
 		List<Product> list = new ArrayList<>();

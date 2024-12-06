@@ -96,7 +96,7 @@
 
 										<div class="product-info text-left m-t-20">
 											<h3 class="name">
-												<a href="detail">${listRandomProductc.name}</a>
+												<a href="detail?id=${listRandomProductc.id}">${listRandomProductc.name}</a>
 											</h3>
 											<div class="rating rateit-small"></div>
 											<div class="product-price">
@@ -111,12 +111,14 @@
 										<div class="cart clearfix animate-effect">
 											<div class="action">
 												<div class="add-cart-button btn-group">
-													<button class="btn btn-primary icon" data-toggle="dropdown"
-														type="button">
-														<i class="fa fa-shopping-cart"></i>
-													</button>
-													<button class="btn btn-primary cart-btn" type="button">Add
+															<form action="cart" method="post">
+																			<input type="hidden" name="productCode"
+																				value="<c:out value='${listRandomProductc.id}'/>">
+																			<button class="btn btn-primary cart-btn" type="submit">Add
 														to cart</button>
+																			
+																		</form>
+													
 												</div>
 											</div>
 											<!-- /.action -->
@@ -148,7 +150,7 @@
 														<div class="col col-xs-5">
 															<div class="product-image">
 																<div class="image">
-																	<a href="detail"> <img
+																	<a href="detail?id=${listProductoldThree.id}"> <img
 																		src="${pageContext.request.contextPath}/${listProductoldThree.image}"
 																		alt="">
 																	</a>
@@ -162,7 +164,7 @@
 														<div class="col col-xs-7">
 															<div class="product-info">
 																<h3 class="name">
-																	<a href="detail">${listProductoldThree.name}</a>
+																	<a href="detail?id=${listProductoldThree.id}">${listProductoldThree.name}</a>
 																</h3>
 																<div class="rating rateit-small"></div>
 																<div class="product-price">
@@ -211,7 +213,7 @@
 														<div class="col col-xs-5">
 															<div class="product-image">
 																<div class="image">
-																	<a href="detail"> <img
+																	<a href="detail?id=${listProductThree.id}"> <img
 																		src="${pageContext.request.contextPath}/${listProductThree.image}"
 																		alt="">
 																	</a>
@@ -225,7 +227,7 @@
 														<div class="col col-xs-7">
 															<div class="product-info">
 																<h3 class="name">
-																	<a href="detail">${listProductThree.name}</a>
+																	<a href="detail?id=${listProductThree.id}">${listProductThree.name}</a>
 																</h3>
 																<div class="rating rateit-small"></div>
 																<div class="product-price">
@@ -258,7 +260,7 @@
 					<!-- ============================================== Testimonials: END ============================================== -->
 
 					<div class="home-banner">
-						<img src="assets\images\banners\LHS-banner.jpg" alt="Image">
+						<img src="assets\images\banners/LHS-banner.jpg" alt="Image">
 					</div>
 				</div>
 				<!-- /.sidemenu-holder -->
@@ -400,7 +402,7 @@
 													<div class="product">
 														<div class="product-image">
 															<div class="image">
-																<a href="detail"><img
+																<a href="detail?id=${lsproductdesc.id}"><img
 																	src="${pageContext.request.contextPath}/${lsproductdesc.image}"
 																	alt=""></a>
 															</div>
@@ -414,7 +416,7 @@
 
 														<div class="product-info text-left">
 															<h3 class="name">
-																<a href="detail">${lsproductdesc.name}</a>
+																<a href="detail?id=${lsproductdesc.id}">${lsproductdesc.name}</a>
 															</h3>
 															<div class="rating rateit-small"></div>
 															<div class="description"></div>
@@ -510,6 +512,7 @@
 																	<button class="btn btn-primary cart-btn" type="button">Add
 																		to cart</button>
 																</li>
+																
 																<li class="lnk wishlist"><a class="add-to-cart"
 																	href="detail.html" title="Wishlist"> <i
 																		class="icon fa fa-heart"></i>
@@ -1633,7 +1636,7 @@
 										<div class="product">
 											<div class="product-image">
 												<div class="image">
-													<a href="detail"><img
+													<a href="detail?id=${listProductold.id}"><img
 														src="${pageContext.request.contextPath}/${listProductold.image}"
 														alt=""></a>
 												</div>
@@ -1647,7 +1650,7 @@
 
 											<div class="product-info text-left">
 												<h3 class="name">
-													<a href="detail">${listProductold.name}</a>
+													<a href="detail?id=${listProductold.id}">${listProductold.name}</a>
 												</h3>
 												<div class="rating rateit-small"></div>
 												<div class="description"></div>
@@ -1663,12 +1666,15 @@
 												<div class="action">
 													<ul class="list-unstyled">
 														<li class="add-cart-button btn-group">
-															<button class="btn btn-primary icon"
-																data-toggle="dropdown" type="button">
-																<i class="fa fa-shopping-cart"></i>
-															</button>
-															<button class="btn btn-primary cart-btn" type="button">Add
-																to cart</button>
+																<form action="cart" method="post">
+																			<input type="hidden" name="productCode"
+																				value="<c:out value='${listProductold.id}'/>">
+																			<button data-toggle="tooltip"
+																				class="btn btn-primary icon" type="submit"
+																				title="Add Cart">
+																				<i class="fa fa-shopping-cart"></i>
+																			</button>
+																		</form>
 														</li>
 
 

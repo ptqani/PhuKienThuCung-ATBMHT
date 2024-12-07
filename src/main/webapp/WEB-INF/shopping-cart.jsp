@@ -58,7 +58,7 @@
 					<td colspan="7">
 						<div class="shopping-cart-btn">
 							<span class="">
-								<a href="#" class="btn btn-upper btn-primary outer-left-xs">Continue Shopping</a>
+								<a href="home" class="btn btn-upper btn-primary outer-left-xs">Continue Shopping</a>
 					
 							</span>
 						</div><!-- /.shopping-cart-btn -->
@@ -78,12 +78,12 @@
 </td>
 
 					<td class="cart-image">
-						<a class="entry-thumbnail" href="detail.html">
+						<a class="entry-thumbnail" href="detail?id=${item.product.id}">
 						    <img src="${item.product.image}" alt="">
 						</a>
 					</td>
 					<td class="cart-product-name-info">
-						<h4 class='cart-product-description'><a href="detail.html">${item.product.name}</a></h4>
+						<h4 class='cart-product-description'><a href="detail?id=${item.product.id}">${item.product.name}</a></h4>
 						<div class="row">
 							<div class="col-sm-4">
 								<div class="rating rateit-small"></div>

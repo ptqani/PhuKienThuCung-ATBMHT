@@ -9,7 +9,7 @@
 				<div class="header-top-inner">
 					<div class="cnt-account">
 						<ul class="list-unstyled">
-							<li><a href="#"><i class="icon fa fa-user"></i>My
+							<li><a href="url?page=dashboard"><i class="icon fa fa-user"></i>My
 									Account</a></li>
 							<li><a href="url?page=cart"><i class="icon fa fa-shopping-cart"></i>My
 									Cart</a></li>

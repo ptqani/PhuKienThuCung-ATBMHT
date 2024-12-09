@@ -16,6 +16,7 @@
     <jsp:include page="header.jsp"></jsp:include>
 </head>
 <body>
+      <hr/>
     <div class="container mt-5">
         <div class="row">
             <!-- Left side: My Account content (1/3) -->
@@ -41,8 +42,11 @@
                     </div>
                     <button type="submit" class="btn-upper btn btn-primary">Change Password</button>
                 </form>
+                 
             </div>
+             
         </div>
+            <hr/>
     </div>
 
     <!-- Include Footer -->

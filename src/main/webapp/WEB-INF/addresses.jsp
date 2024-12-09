@@ -9,13 +9,14 @@
     <meta name="author" content="">
     <meta name="keywords" content="MediaCenter, Template, eCommerce">
     <meta name="robots" content="all">
-    <title>Your Addresses</title>
+    <title>Manage Address</title>
 
     <!-- Bootstrap Core CSS -->
     <jsp:include page="css.jsp"></jsp:include>
     <jsp:include page="header.jsp"></jsp:include>
 </head>
 <body>
+  <hr/>
     <div class="container mt-5">
         <div class="row">
             <!-- Left side: My Account content (1/3) -->
@@ -23,30 +24,46 @@
                 <jsp:include page="my-account.jsp"></jsp:include>
             </div>
 
-            <!-- Right side: Manage Addresses Form (2/3) -->
+            <!-- Right side: Manage Address Form (2/3) -->
             <div class="col-md-8">
-                <h5>Your Addresses</h5>
-                <p>Manage your shipping and billing addresses here.</p>
-
-                <!-- Form to manage addresses -->
-                <form method="POST" action="update-addresses">
-                    <div class="form-group">
-                        <label class="info-title" for="shippingAddress">Shipping Address</label>
-                        <input type="text" class="form-control" id="shippingAddress" name="shippingAddress" value="${user.shippingAddress}" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="info-title" for="billingAddress">Billing Address</label>
-                        <input type="text" class="form-control" id="billingAddress" name="billingAddress" value="${user.billingAddress}" required>
-                    </div>
-                    <button type="submit" class="btn-upper btn btn-primary">Update Addresses</button>
-                </form>
-
-                <!-- List of existing addresses (optional) -->
-                <div class="existing-addresses mt-4">
-                    <h6>Existing Addresses</h6>
-                    <p><strong>Shipping Address:</strong> ${user.shippingAddress}</p>
-                    <p><strong>Billing Address:</strong> ${user.billingAddress}</p>
+                <h5>Manage Your Address</h5>
+                
+                <!-- Address Display -->
+                <div class="address-display">
+                    <h6>Current Address</h6>
+                    <p><strong>Street Address:</strong> 123 Main St</p>
+                    <p><strong>City:</strong> New York</p>
+                    <p><strong>State:</strong> NY</p>
+                    <p><strong>ZIP Code:</strong> 10001</p>
+                    <p><strong>Country:</strong> USA</p>
+                
                 </div>
+                      <hr/>
+                <!-- Address Edit Form (if editing) -->
+                <form method="POST" action="update-address" class="address-form mt-4">
+                    <div class="form-group">
+                        <label class="info-title" for="streetAddress">Street Address</label>
+                        <input type="text" class="form-control" id="streetAddress" name="streetAddress" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="info-title" for="city">City</label>
+                        <input type="text" class="form-control" id="city" name="city" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="info-title" for="state">State</label>
+                        <input type="text" class="form-control" id="state" name="state" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="info-title" for="zipCode">ZIP Code</label>
+                        <input type="text" class="form-control" id="zipCode" name="zipCode" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="info-title" for="country">Country</label>
+                        <input type="text" class="form-control" id="country" name="country" required>
+                    </div>
+                    <button type="submit" class="btn btn-success">Update Address</button>
+                </form>
+                  <hr/>
             </div>
         </div>
     </div>

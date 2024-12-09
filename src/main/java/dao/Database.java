@@ -23,64 +23,123 @@ public class Database {
 		// Kết nối tới cơ sở dữ liệu và trả về đối tượng Connection
 		return DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_thu_cung", "root", "123456");
 	}
+
+	public String getPublicKeyByUserId(int userId) throws ClassNotFoundException, SQLException {
+		String select = "SELECT publickey FROM `key` WHERE iduser = ?"; // Truy vấn lấy publickey theo iduser
+
+		try (Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(select)) {
+
+			preparedStatement.setInt(1, userId); // Gán iduser vào câu truy vấn
+			ResultSet rs = preparedStatement.executeQuery();
+
+			// Nếu tìm thấy publickey, trả về giá trị publickey
+			if (rs.next()) {
+				return rs.getString("publickey");
+			}
+		}
+
+		// Nếu không tìm thấy publickey, trả về null
+		return null;
+	}
+
+	public boolean updatePublicKeyByUserId(int userId, byte[] publicKeyData) throws ClassNotFoundException, SQLException {
+	    String updateQuery = "UPDATE `key` SET publickey = ?, updated_day = CURRENT_TIMESTAMP WHERE iduser = ?";
+
+	    try (Connection connection = getConnection();
+	         PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
+
+	        preparedStatement.setBytes(1, publicKeyData);  // Lưu public key dưới dạng byte[]
+	        preparedStatement.setInt(2, userId);
+
+	        int rowsAffected = preparedStatement.executeUpdate();
+	        return rowsAffected > 0;
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw new SQLException("Failed to update public key for user ID " + userId + ": " + e.getMessage());
+	    }
+	}
+
+
+	public boolean upsertKey(int userId, String publicKey) throws ClassNotFoundException, SQLException {
+		String upsertQuery = "INSERT INTO `key` (iduser, publickey, created_day) " + "VALUES (?, ?, CURRENT_TIMESTAMP) "
+				+ "ON DUPLICATE KEY UPDATE publickey = ?, updated_day = CURRENT_TIMESTAMP";
+
+		try (Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(upsertQuery)) {
+
+			preparedStatement.setInt(1, userId); // Set iduser
+			preparedStatement.setString(2, publicKey); // Set publickey
+			preparedStatement.setString(3, publicKey); // Set publickey for update
+
+			// Thực thi câu lệnh để chèn hoặc cập nhật dữ liệu
+			int result = preparedStatement.executeUpdate();
+
+			return result > 0; // Nếu có ít nhất một dòng bị ảnh hưởng, trả về true
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SQLException("Cập nhật hoặc chèn khóa không thành công: " + e.getMessage());
+		}
+	}
+
 	// Phương thức lấy một sản phẩm theo ID
 	public Product getProductById(String itemId) throws ClassNotFoundException, SQLException {
-	    Product product = null;
-	    String select = "SELECT * FROM product WHERE id = ?"; // Truy vấn lấy sản phẩm theo ID
+		Product product = null;
+		String select = "SELECT * FROM product WHERE id = ?"; // Truy vấn lấy sản phẩm theo ID
 
-	    // Kết nối và thực thi truy vấn
-	    try (Connection connection = getConnection();
-	         PreparedStatement preparedStatement = connection.prepareStatement(select)) {
+		// Kết nối và thực thi truy vấn
+		try (Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(select)) {
 
-	        preparedStatement.setString(1, itemId); // Gán ID sản phẩm vào câu truy vấn
-	        ResultSet rs = preparedStatement.executeQuery();
+			preparedStatement.setString(1, itemId); // Gán ID sản phẩm vào câu truy vấn
+			ResultSet rs = preparedStatement.executeQuery();
 
-	        // Nếu tìm thấy sản phẩm, trả về đối tượng Product
-	        if (rs.next()) {
-	            product = new Product(
-	                rs.getInt(1), // ID sản phẩm
-	                rs.getString(2), // Tên sản phẩm
-	                rs.getString(3), // Mô tả
-	                rs.getDouble(4), // Giá
-	                rs.getString(5), // Loại
-	                rs.getString(6), // Hình ảnh
-	                rs.getString(7), // Thương hiệu
-	                rs.getInt(8), // Số lượng
-	                rs.getInt(9) // Trạng thái
-	            );
-	        }
-	    }
+			// Nếu tìm thấy sản phẩm, trả về đối tượng Product
+			if (rs.next()) {
+				product = new Product(rs.getInt(1), // ID sản phẩm
+						rs.getString(2), // Tên sản phẩm
+						rs.getString(3), // Mô tả
+						rs.getDouble(4), // Giá
+						rs.getString(5), // Loại
+						rs.getString(6), // Hình ảnh
+						rs.getString(7), // Thương hiệu
+						rs.getInt(8), // Số lượng
+						rs.getInt(9) // Trạng thái
+				);
+			}
+		}
 
-	    return product; // Trả về sản phẩm nếu tìm thấy, nếu không trả về null
+		return product; // Trả về sản phẩm nếu tìm thấy, nếu không trả về null
 	}
 
 	// Phương thức lấy tất cả sản phẩm theo danh mục
 	public List<Product> getProductsByCategory(int categoryId) throws ClassNotFoundException, SQLException {
-	    List<Product> list = new ArrayList<>();
-	    String select = "SELECT * FROM product WHERE cateID = ?"; // Truy vấn lấy sản phẩm theo danh mục
+		List<Product> list = new ArrayList<>();
+		String select = "SELECT * FROM product WHERE cateID = ?"; // Truy vấn lấy sản phẩm theo danh mục
 
-	    // Kết nối và thực thi truy vấn
-	    try (Connection connection = getConnection();
-	         PreparedStatement preparedStatement = connection.prepareStatement(select)) {
+		// Kết nối và thực thi truy vấn
+		try (Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(select)) {
 
-	        preparedStatement.setInt(1, categoryId); // Gán categoryId vào câu truy vấn
-	        ResultSet rs = preparedStatement.executeQuery();
+			preparedStatement.setInt(1, categoryId); // Gán categoryId vào câu truy vấn
+			ResultSet rs = preparedStatement.executeQuery();
 
-	        // Duyệt qua kết quả và thêm vào danh sách sản phẩm
-	        while (rs.next()) {
-	            list.add(new Product(rs.getInt(1), // ID sản phẩm
-	                    rs.getString(2), // Tên sản phẩm
-	                    rs.getString(3), // Mô tả
-	                    rs.getDouble(4), // Giá
-	                    rs.getString(5), // Loại
-	                    rs.getString(6), // Hình ảnh
-	                    rs.getString(7), // Thương hiệu
-	                    rs.getInt(8), // Số lượng
-	                    rs.getInt(9) // Trạng thái
-	            ));
-	        }
-	    }
-	    return list;
+			// Duyệt qua kết quả và thêm vào danh sách sản phẩm
+			while (rs.next()) {
+				list.add(new Product(rs.getInt(1), // ID sản phẩm
+						rs.getString(2), // Tên sản phẩm
+						rs.getString(3), // Mô tả
+						rs.getDouble(4), // Giá
+						rs.getString(5), // Loại
+						rs.getString(6), // Hình ảnh
+						rs.getString(7), // Thương hiệu
+						rs.getInt(8), // Số lượng
+						rs.getInt(9) // Trạng thái
+				));
+			}
+		}
+		return list;
 	}
 
 	// Phương thức lấy tất cả danh mục từ cơ sở dữ liệu
@@ -217,33 +276,35 @@ public class Database {
 		}
 		return list;
 	}
+
 	// Phương thức lấy 6 sản phẩm ngẫu nhiên từ cơ sở dữ liệu
-		public List<Product> getRandomSixProducts() throws ClassNotFoundException, SQLException {
-			List<Product> list = new ArrayList<>();
-			String select = "SELECT * FROM product ORDER BY RAND() LIMIT 6";
+	public List<Product> getRandomSixProducts() throws ClassNotFoundException, SQLException {
+		List<Product> list = new ArrayList<>();
+		String select = "SELECT * FROM product ORDER BY RAND() LIMIT 6";
 
-			// Kết nối và thực thi truy vấn
-			try (Connection connection = getConnection();
-					PreparedStatement preparedStatement = connection.prepareStatement(select)) {
+		// Kết nối và thực thi truy vấn
+		try (Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(select)) {
 
-				ResultSet rs = preparedStatement.executeQuery();
+			ResultSet rs = preparedStatement.executeQuery();
 
-				// Duyệt qua kết quả và thêm vào danh sách sản phẩm
-				while (rs.next()) {
-					list.add(new Product(rs.getInt(1), // ID sản phẩm
-							rs.getString(2), // Tên sản phẩm
-							rs.getString(3), // Mô tả
-							rs.getDouble(4), // Giá
-							rs.getString(5), // Loại
-							rs.getString(6), // Hình ảnh
-							rs.getString(7), // Thương hiệu
-							rs.getInt(8), // Số lượng
-							rs.getInt(9) // Trạng thái
-					));
-				}
+			// Duyệt qua kết quả và thêm vào danh sách sản phẩm
+			while (rs.next()) {
+				list.add(new Product(rs.getInt(1), // ID sản phẩm
+						rs.getString(2), // Tên sản phẩm
+						rs.getString(3), // Mô tả
+						rs.getDouble(4), // Giá
+						rs.getString(5), // Loại
+						rs.getString(6), // Hình ảnh
+						rs.getString(7), // Thương hiệu
+						rs.getInt(8), // Số lượng
+						rs.getInt(9) // Trạng thái
+				));
 			}
-			return list;
 		}
+		return list;
+	}
+
 	// Phương thức lấy 3 sản phẩm cũ nhất từ cơ sở dữ liệu
 	public List<Product> getOldThreeProducts() throws ClassNotFoundException, SQLException {
 		List<Product> list = new ArrayList<>();
@@ -354,7 +415,7 @@ public class Database {
 
 	public boolean registerUser(String username, String pass, String email, String phone)
 			throws ClassNotFoundException, SQLException {
-		String insert = "INSERT INTO user (username, email, phone, password, role, created_at, updated_at) VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+		String insert = "INSERT INTO user (username, email, phone, password, role, created_at) VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
 
 		// Kết nối và thực thi truy vấn
 		try (Connection connection = getConnection();

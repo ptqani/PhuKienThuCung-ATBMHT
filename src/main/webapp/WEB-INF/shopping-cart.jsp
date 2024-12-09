@@ -117,77 +117,14 @@
 			</tbody><!-- /tbody -->
 		</table><!-- /table -->
 	</div>
-</div><!-- /.shopping-cart-table -->				<div class="col-md-4 col-sm-12 estimate-ship-tax">
-	<table class="table">
-		<thead>
-			<tr>
-				<th>
-					<span class="estimate-title">Estimate shipping and tax</span>
-					<p>Enter your destination to get shipping and tax.</p>
-				</th>
-			</tr>
-		</thead><!-- /thead -->
-		<tbody>
-				<tr>
-					<td>
-						<div class="form-group">
-							<label class="info-title control-label">Country <span>*</span></label>
-							<select class="form-control unicase-form-control selectpicker">
-								<option>--Select options--</option>
-								<option>India</option>
-								<option>SriLanka</option>
-								<option>united kingdom</option>
-								<option>saudi arabia</option>
-								<option>united arab emirates</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label class="info-title control-label">State/Province <span>*</span></label>
-							<select class="form-control unicase-form-control selectpicker">
-								<option>--Select options--</option>
-								<option>TamilNadu</option>
-								<option>Kerala</option>
-								<option>Andhra Pradesh</option>
-								<option>Karnataka</option>
-								<option>Madhya Pradesh</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label class="info-title control-label">Zip/Postal Code</label>
-							<input type="text" class="form-control unicase-form-control text-input" placeholder="">
-						</div>
-						<div class="pull-right">
-							<button type="submit" class="btn-upper btn btn-primary">GET A QOUTE</button>
-						</div>
-					</td>
-				</tr>
-		</tbody>
-	</table>
+</div><!-- /.shopping-cart-table -->
+	
+<div class="col-md-4 col-sm-12 estimate-ship-tax">
+
 </div><!-- /.estimate-ship-tax -->
 
 <div class="col-md-4 col-sm-12 estimate-ship-tax">
-	<table class="table">
-		<thead>
-			<tr>
-				<th>
-					<span class="estimate-title">Discount Code</span>
-					<p>Enter your coupon code if you have one..</p>
-				</th>
-			</tr>
-		</thead>
-		<tbody>
-				<tr>
-					<td>
-						<div class="form-group">
-							<input type="text" class="form-control unicase-form-control text-input" placeholder="You Coupon..">
-						</div>
-						<div class="clearfix pull-right">
-							<button type="submit" class="btn-upper btn btn-primary">APPLY COUPON</button>
-						</div>
-					</td>
-				</tr>
-		</tbody><!-- /tbody -->
-	</table><!-- /table -->
+	
 </div><!-- /.estimate-ship-tax -->
 
 <div class="col-md-4 col-sm-12 cart-shopping-total">
@@ -222,75 +159,7 @@
 	</table><!-- /table -->
 </div><!-- /.cart-shopping-total -->			</div><!-- /.shopping-cart -->
 		</div> <!-- /.row -->
-		<!-- ============================================== BRANDS CAROUSEL ============================================== -->
-<div id="brands-carousel" class="logo-slider wow fadeInUp">
-
-		<div class="logo-slider-inner">	
-			<div id="brand-slider" class="owl-carousel brand-slider custom-carousel owl-theme">
-				<div class="item m-t-15">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand1.png" src="assets\images\blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-
-				<div class="item m-t-10">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand2.png" src="assets\images\blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-
-				<div class="item">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand3.png" src="assets\images\blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-
-				<div class="item">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand4.png" src="assets\images\blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-
-				<div class="item">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand5.png" src="assets\images\blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-
-				<div class="item">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand6.png" src="assets\images\blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-
-				<div class="item">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand2.png" src="assets\images\blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-
-				<div class="item">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand4.png" src="assets\images\blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-
-				<div class="item">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand1.png" src="assets\images\blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-
-				<div class="item">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand5.png" src="assets\images\blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-		    </div><!-- /.owl-carousel #logo-slider -->
-		</div><!-- /.logo-slider-inner -->
-	
-</div><!-- /.logo-slider -->
-<!-- ============================================== BRANDS CAROUSEL : END ============================================== -->	</div><!-- /.container -->
+	</div><!-- /.container -->
 </div><!-- /.body-content -->
 
 <!-- ============================================================= FOOTER ============================================================= -->

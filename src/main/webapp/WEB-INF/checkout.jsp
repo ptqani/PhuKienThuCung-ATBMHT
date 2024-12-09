@@ -60,51 +60,101 @@
 
 				<!-- guest-login -->			
 				<div class="col-md-6 col-sm-6 guest-login">
-					<h4 class="checkout-subtitle">Guest or Register Login</h4>
-					<p class="text title-tag-line">Register with us for future convenience:</p>
+				
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <span class="estimate-title">Estimate Shipping and Tax</span>
+                    <p>Enter your destination and contact details to get shipping and tax estimates.</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                        <!-- Name Field -->
+                        <div class="form-group">
+                            <label class="info-title control-label" for="name">Full Name <span>*</span></label>
+                            <input type="text" id="name" class="form-control unicase-form-control text-input" placeholder="Enter your full name" required>
+                        </div>
 
-					<!-- radio-form  -->
-					<form class="register-form" role="form">
-					    <div class="radio radio-checkout-unicase">  
-					        <input id="guest" type="radio" name="text" value="guest" checked="">  
-					        <label class="radio-button guest-check" for="guest">Checkout as Guest</label>  
-					          <br>
-					        <input id="register" type="radio" name="text" value="register">  
-					        <label class="radio-button" for="register">Register</label>  
-					    </div>  
-					</form>
-					<!-- radio-form  -->
+                        <!-- Phone Number Field -->
+                        <div class="form-group">
+                            <label class="info-title control-label" for="phone">Phone Number <span>*</span></label>
+                            <input type="tel" id="phone" class="form-control unicase-form-control text-input" placeholder="Enter your phone number" required pattern="^[0-9]{10}$">
+                        </div>
 
-					<h4 class="checkout-subtitle outer-top-vs">Register and save time</h4>
-					<p class="text title-tag-line ">Register with us for future convenience:</p>
-					
-					<ul class="text instruction inner-bottom-30">
-						<li class="save-time-reg">- Fast and easy check out</li>
-						<li>- Easy access to your order history and status</li>
-					</ul>
+                        <!-- Email Field -->
+                        <div class="form-group">
+                            <label class="info-title control-label" for="email">Email Address <span>*</span></label>
+                            <input type="email" id="email" class="form-control unicase-form-control text-input" placeholder="Enter your email address" required>
+                        </div>
 
-					<button type="submit" class="btn-upper btn btn-primary checkout-page-button checkout-continue ">Continue</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+				
+				
 				</div>
 				<!-- guest-login -->
 
 				<!-- already-registered-login -->
 				<div class="col-md-6 col-sm-6 already-registered-login">
-					<h4 class="checkout-subtitle">Already registered?</h4>
-					<p class="text title-tag-line">Please log in below:</p>
-					<form class="register-form" role="form">
-						<div class="form-group">
-					    <label class="info-title" for="exampleInputEmail1">Email Address <span>*</span></label>
-					    <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1" placeholder="">
-					  </div>
-					  <div class="form-group">
-					    <label class="info-title" for="exampleInputPassword1">Password <span>*</span></label>
-					    <input type="password" class="form-control unicase-form-control text-input" id="exampleInputPassword1" placeholder="">
-					    <a href="#" class="forgot-password">Forgot your Password?</a>
-					  </div>
-					  <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Login</button>
-					</form>
+				
+	<table class="table">
+		<thead>
+			<tr>
+			
+			</tr>
+		</thead>
+		<tbody>
+				<tr>
+					<td>
+					<!-- Country Field -->
+                        <div class="form-group">
+                            <label class="info-title control-label" for="country">Country <span>*</span></label>
+                            <select id="country" class="form-control unicase-form-control selectpicker" required>
+                                <option value="">--Select options--</option>
+                                <option value="india">India</option>
+                                <option value="sri-lanka">Sri Lanka</option>
+                                <option value="united-kingdom">United Kingdom</option>
+                                <option value="saudi-arabia">Saudi Arabia</option>
+                                <option value="united-arab-emirates">United Arab Emirates</option>
+                            </select>
+                        </div>
+                        
+                        <!-- State/Province Field -->
+                        <div class="form-group">
+                            <label class="info-title control-label" for="state">State/Province <span>*</span></label>
+                            <select id="state" class="form-control unicase-form-control selectpicker" required>
+                                <option value="">--Select options--</option>
+                                <option value="tamilnadu">Tamil Nadu</option>
+                                <option value="kerala">Kerala</option>
+                                <option value="andhra-pradesh">Andhra Pradesh</option>
+                                <option value="karnataka">Karnataka</option>
+                                <option value="madhya-pradesh">Madhya Pradesh</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Zip/Postal Code Field -->
+                        <div class="form-group">
+                            <label class="info-title control-label" for="zip">Zip/Postal Code</label>
+                            <input type="text" id="zip" class="form-control unicase-form-control text-input" placeholder="Enter zip/postal code" pattern="^\d{5}(-\d{4})?$">
+                        </div>
+                        
+						<div class="clearfix pull-right">
+							<button type="submit" class="btn-upper btn btn-primary">APPLY COUPON</button>
+						</div>
+					</td>
+				</tr>
+		</tbody><!-- /tbody -->
+	</table><!-- /table -->
+					
 				</div>	
 				<!-- already-registered-login -->		
+
 
 			</div>			
 		</div>

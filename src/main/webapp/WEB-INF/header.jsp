@@ -14,7 +14,13 @@
 							<li><a href="url?page=cart"><i class="icon fa fa-shopping-cart"></i>My
 									Cart</a></li>
 							<li><a href="url?page=checkout"><i class="icon fa fa-check"></i>Checkout</a></li>
-							<li><a href="url?page=login"><i class="icon fa fa-lock"></i>Login</a></li>
+								<c:if test="${sessionScope.user == null}">
+						<li><a href="url?page=login"><i class="icon fa fa-lock"></i>Login</a></li>
+					</c:if>
+									<c:if test="${sessionScope.user != null}">
+						<li>
+							${sessionScope.user.username} <a href="url?page=logout">Logout</a></li>
+					</c:if>
 						</ul>
 					</div>
 					<!-- /.cnt-account -->
@@ -170,7 +176,9 @@
 																	</a></li>
 																<li><a href="url?page=checkout">Checkout</a></li>
 																<li><a href="contact.html">Contact</a></li>
+																
 																<li><a href="url?page=login">Sign In</a></li>
+															
 																<li><a href="${pageContext.request.contextPath}/404.jsp">404</a></li>
 															</ul>
 														</div>

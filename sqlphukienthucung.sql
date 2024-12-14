@@ -34,20 +34,43 @@ CREATE TABLE IF NOT EXISTS `key` (
     `iduser` INT NOT NULL,
     `publickey` TEXT NOT NULL,
     `created_day` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `updated_day` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `end_time` timestamp NULL DEFAULT NULL,
+    `updated_day` TIMESTAMP DEFAULT NULL,
+    `status` varchar(100) DEFAULT NULL,
     FOREIGN KEY (`iduser`) REFERENCES `user`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     UNIQUE KEY (`iduser`)  -- Chỉ mục duy nhất cho iduser
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE IF NOT EXISTS `customers` (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    customer_name VARCHAR(255) NOT NULL,
-    customer_email VARCHAR(255) NOT NULL UNIQUE,
-    customer_phone VARCHAR(15),
-    shipping_address TEXT,
-    iduser INT,
-    FOREIGN KEY (iduser) REFERENCES user(id)
+CREATE TABLE IF NOT EXISTS `orders` (
+    `order_id` INT AUTO_INCREMENT PRIMARY KEY,      -- ID đơn hàng (khóa chính)
+    `user_id` INT NOT NULL,                          -- ID người mua (liên kết với bảng người dùng)
+    `name` VARCHAR(255) NOT NULL,                    -- Tên của người mua
+    `phone` VARCHAR(20),                             -- Số điện thoại người mua
+    `email_address` VARCHAR(255),                    -- Địa chỉ email người mua
+    `order_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Ngày tạo đơn hàng
+    `total_price` INT NOT NULL,                      -- Tổng giá trị đơn hàng
+    `shipping_address` VARCHAR(255) NOT NULL,        -- Địa chỉ giao hàng
+    `status` VARCHAR(255) NOT NULL,                  -- Trạng thái đơn hàng (ví dụ: "pending", "shipped", "delivered")
+    `order_hash` TEXT NOT NULL,                      -- Mã hash duy nhất của đơn hàng
+    `order_signature` TEXT,  -- Chữ ký điện tử của người mua (nếu có)
+    `is_verified` TINYINT(1) DEFAULT 0                       
+    FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) -- Khóa ngoại liên kết với bảng `user`
 );
+
+
+CREATE TABLE IF NOT EXISTS `order_detail` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,         -- ID của chi tiết đơn hàng (khóa chính)
+    `order_id` INT NOT NULL,                     -- ID đơn hàng (khóa ngoại liên kết với bảng `orders`)
+    `product_id` INT NOT NULL,                   -- ID sản phẩm (khóa ngoại liên kết với bảng `product`)
+    `product_name` TEXT, 
+    `quantity` INT NOT NULL,           -- Số lượng sản phẩm
+    `price` INT NOT NULL,                        -- Giá tại thời điểm mua
+    `total_price` INT GENERATED ALWAYS AS (`quantity` * `price`) STORED, -- Tổng giá trị cho sản phẩm
+    FOREIGN KEY (`order_id`) REFERENCES `orders`(`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (`product_id`) REFERENCES `product`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
 
 -- Thêm dữ liệu vào bảng category
 INSERT INTO `category` (`name`)
@@ -56,7 +79,7 @@ VALUES
 ('Phụ kiện thú cưng'),
 ('Dụng cụ huấn luyện'),
 ('Thức ăn cho thú cưng');
-USE shop_thu_cung;
+
 INSERT INTO `product` (`name`, `image`, `price`, `sellprice`, `title`, `description`, `cateID`, `id_product`)
 VALUES
 ('Chó con Poodle', 'assets/images/products/p1.jpg', 2500000, 2300000, 'Chó Poodle dễ thương', 'Chó con Poodle dễ thương, đáng yêu, phù hợp với mọi gia đình.', 1, 201),

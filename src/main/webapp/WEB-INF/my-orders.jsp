@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
 <head>
     <!-- Meta -->
@@ -38,20 +39,16 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <c:forEach items="${orders}"
+									var="orders">
                         <tr>
-                            <td>#12345</td>
-                            <td>12/12/2024</td>
-                            <td>Shipped</td>
-                            <td>$150.00</td>
-                            <td><a href="order-details.jsp?orderId=12345" class="btn btn-info">View</a></td>
+                            <td>#${orders.order_id}</td>
+                            <td>${orders.order_date}</td>
+                            <td>${orders.status}</td>
+                            <td>${orders.total_price}</td>
+                            <td><a href="orderdetails?ordeid=${orders.order_id}" class="btn btn-info">View</a></td>
                         </tr>
-                        <tr>
-                            <td>#12346</td>
-                            <td>15/12/2024</td>
-                            <td>Processing</td>
-                            <td>$80.00</td>
-                            <td><a href="order-details.jsp?orderId=12346" class="btn btn-info">View</a></td>
-                        </tr>
+                      </c:forEach>
                     </tbody>
                 </table>
                   <hr/>

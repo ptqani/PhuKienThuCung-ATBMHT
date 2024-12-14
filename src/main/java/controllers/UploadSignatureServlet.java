@@ -1,51 +1,39 @@
 package controllers;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
 import dao.Database;
-import models.User;
-@WebServlet("/upload-publickey")
-@MultipartConfig
+
+@WebServlet("/upload-signature")
 public class UploadSignatureServlet extends HttpServlet {
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Lấy thông tin người dùng từ session
-        User user = (User) req.getSession().getAttribute("user");
-        int userId = user.getId();
-
-        // Lấy file public key từ request
-        Part filePart = req.getPart("publickeyFile");
-
-        // Đọc dữ liệu từ file
-        InputStream fileContent = filePart.getInputStream();
-        byte[] publicKeyBytes = new byte[fileContent.available()];
-        fileContent.read(publicKeyBytes);
-
-        // Lưu public key vào cơ sở dữ liệu
-     
-            Database dao = new Database();
-            try {
-				boolean success = dao.updatePublicKeyByUserId(userId, publicKeyBytes);
-				resp.sendRedirect("url?page=dashboard");
-			} catch (ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		int orderId = Integer.parseInt(request.getParameter("orderId"));
+		String signature = request.getParameter("signature");
+		Database dao = new Database();
+		try {
+			boolean isUpdated = dao.updateOrderSignature(orderId, signature);
+			if (isUpdated) {
+				// Gửi phản hồi thành công
+				response.setStatus(HttpServletResponse.SC_OK);
+				response.getWriter().write("Chữ ký đã được cập nhật thành công.");
+			} else {
+				// Gửi phản hồi thất bại nếu không tìm thấy orderId
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				response.getWriter().write("Không tìm thấy đơn hàng với ID: " + orderId);
 			}
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-         
- 
-
-     
-    }
+	}
 }

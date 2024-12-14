@@ -22,9 +22,10 @@
 						<ul>
 							<li><a href="url?page=dashboard">Dashboard</a></li>
 							<li><a href="url?page=myoders">Orders</a></li>
-							<li><a href="url?page=address">Addresses</a></li>
+							<li><a href="url?page=address">Addresses</a></li>	
+									<li><a href="url?page=keygen">Keygen</a></li>				
 							<li><a href="url?page=chagepass">Change Password</a></li>
-							<li><a href="url?page=dashboard">Logout</a></li>
+							<li><a href="url?page=logout">Logout</a></li>
 						</ul>
 					</div>
 				</div>

@@ -9,6 +9,7 @@ public class User {
     private String password;
     private String phone;
     private String role;
+	private String publicKey;
 	public User(int id, String username, String email, String password, String phone, String role) {
 		super();
 		this.id = id;
@@ -54,10 +55,21 @@ public class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
+	public String getPublicKey() {
+		return publicKey;
+	}
+
+	public void setPublicKey(String publicKey) {
+		this.publicKey = publicKey;
+	}
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password + ", phone="
 				+ phone + ", role=" + role + "]";
+	}
+	public Product[] getListPro() {
+		// TODO Auto-generated method stub
+		return null;
 	}
  
 }

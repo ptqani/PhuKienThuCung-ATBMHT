@@ -73,7 +73,7 @@
     <form action="cart" method="post">
         <input type="hidden" name="productCode" value="<c:out value='${item.product.id}'/>">
         <input type="hidden" name="quantity" value="0">
-        <input type="submit" value="Xóa" class="btn btn-primary">
+        <input type="submit" value="Delete" class="btn btn-primary">
     </form>
 </td>
 
@@ -105,7 +105,7 @@
            id="quantity" min="1" max="100" class="qty" 
            style="width: 40px; text-align: center; margin: 0 5px;" />
     <input type="hidden" name="productCode" value="<c:out value='${item.product.id}'/>">
-    <input class="btn btn-primary" type="submit" value="Cập nhật">
+    <input class="btn btn-primary" type="submit" value="Update">
 </form>
 
 				      
@@ -149,10 +149,11 @@
 		<tbody>
 				<tr>
 					<td>
-						<div class="cart-checkout-btn pull-right">
-							<button type="submit" class="btn btn-primary checkout-btn">PROCCED TO CHEKOUT</button>
-							<span class="">Checkout with multiples address!</span>
-						</div>
+				<div class="cart-checkout-btn pull-right">
+    <a href="url?page=checkout" class="btn btn-primary checkout-btn">PROCEED TO CHECKOUT</a>
+    <span class="">Checkout with multiple addresses!</span>
+</div>
+
 					</td>
 				</tr>
 		</tbody><!-- /tbody -->

@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.Database;
+import models.Order;
 import models.User;
 
 @WebServlet("/url")
@@ -33,21 +35,37 @@ public class URL extends HttpServlet {
 				req.getRequestDispatcher("/WEB-INF/checkout.jsp").forward(req, resp);
 				break;
 			case "dashboard":
+				req.getRequestDispatcher("/WEB-INF/dashboard.jsp").forward(req, resp);
+				break;
+			case "myoders":
 				try {
-					handleDashboard(req, resp);
-				} catch (ClassNotFoundException | ServletException | IOException | SQLException e) {
+					handleOders(req, resp);
+				} catch (ServletException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				break;
-			case "myoders":
-				req.getRequestDispatcher("/WEB-INF/my-orders.jsp").forward(req, resp);
+
 				break;
 			case "chagepass":
 				req.getRequestDispatcher("/WEB-INF/chage-password.jsp").forward(req, resp);
 				break;
 			case "address":
 				req.getRequestDispatcher("/WEB-INF/addresses.jsp").forward(req, resp);
+				break;
+			case "keygen":
+				try {
+					handleKeygen(req, resp);
+				} catch (ClassNotFoundException | ServletException | IOException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 				break;
 			case "logout":
 				handleLogout(req, resp);
@@ -59,14 +77,27 @@ public class URL extends HttpServlet {
 		}
 	}
 
-	private void handleDashboard(HttpServletRequest req, HttpServletResponse resp)
+	private void handleOders(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException, ClassNotFoundException, SQLException {
+		// Lấy thông tin người dùng từ session
+		User user = (User) req.getSession().getAttribute("user");
+		int userId = user.getId();
+		Database dao = new Database();
+		List<Order> orders = dao.getOrdersByUserId(userId);
+		// Lưu danh sách đơn hàng vào request để hiển thị trên trang
+		req.setAttribute("orders", orders);
+		req.getRequestDispatcher("/WEB-INF/my-orders.jsp").forward(req, resp);
+
+	}
+
+	private void handleKeygen(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		User user = (User) req.getSession().getAttribute("user");
 		int userId = user.getId();
 		Database dao = new Database();
 		String publickey = dao.getPublicKeyByUserId(userId);
 		req.setAttribute("key", publickey);
-		req.getRequestDispatcher("/WEB-INF/dashboard.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/keyGen.jsp").forward(req, resp);
 
 	}
 

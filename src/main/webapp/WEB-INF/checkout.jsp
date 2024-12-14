@@ -34,252 +34,181 @@
 </div><!-- /.breadcrumb -->
 
 <div class="body-content">
-	<div class="container">
-		<div class="checkout-box ">
-			<div class="row">
-				<div class="col-md-8">
-					<div class="panel-group checkout-steps" id="accordion">
-						<!-- checkout-step-01  -->
-<div class="panel panel-default checkout-step-01">
+    <div class="container">
+        <div class="checkout-box">
+            <form action="checkoutServlet" method="post">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="panel-group checkout-steps" id="accordion">
+                            <!-- checkout-step-01 -->
+                            <div class="panel panel-default checkout-step-01">
+                                <!-- panel-heading -->
+                                <div class="panel-heading">
+                                    <h4 class="unicase-checkout-title">
+                                        <a data-toggle="collapse" class="" data-parent="#accordion" href="#collapseOne">
+                                            <span>1</span>Checkout Method
+                                        </a>
+                                    </h4>
+                                </div>
+                                <!-- panel-heading -->
 
-	<!-- panel-heading -->
-		<div class="panel-heading">
-    	<h4 class="unicase-checkout-title">
-	        <a data-toggle="collapse" class="" data-parent="#accordion" href="#collapseOne">
-	          <span>1</span>Checkout Method
-	        </a>
-	     </h4>
-    </div>
-    <!-- panel-heading -->
+                                <div id="collapseOne" class="panel-collapse collapse in">
+                                    <!-- panel-body -->
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <!-- guest-login -->
+                                            <div class="col-md-6 col-sm-6 guest-login">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                <span class="estimate-title">Estimate Shipping and Tax</span>
+                                                                <p>Enter your destination and contact details to get shipping and tax estimates.</p>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <!-- Name Field -->
+                                                                <div class="form-group">
+                                                                    <label class="info-title control-label" for="name">Full Name <span>*</span></label>
+                                                                    <input type="text" id="name" name="name" class="form-control unicase-form-control text-input" placeholder="Enter your full name" required>
+                                                                </div>
 
-	<div id="collapseOne" class="panel-collapse collapse in">
+                                                                <!-- Phone Number Field -->
+                                                                <div class="form-group">
+                                                                    <label class="info-title control-label" for="phone">Phone Number <span>*</span></label>
+                                                                    <input type="tel" id="phone" name="phone" class="form-control unicase-form-control text-input" placeholder="Enter your phone number" required pattern="^[0-9]{10}$">
+                                                                </div>
 
-		<!-- panel-body  -->
-	    <div class="panel-body">
-			<div class="row">		
+                                                                <!-- Email Field -->
+                                                                <div class="form-group">
+                                                                    <label class="info-title control-label" for="email">Email Address <span>*</span></label>
+                                                                    <input type="email" id="email" name="email" class="form-control unicase-form-control text-input" placeholder="Enter your email address" required>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+ 
+                                            </div>
+                                            <!-- guest-login -->
 
-				<!-- guest-login -->			
-				<div class="col-md-6 col-sm-6 guest-login">
-				
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    <span class="estimate-title">Estimate Shipping and Tax</span>
-                    <p>Enter your destination and contact details to get shipping and tax estimates.</p>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                        <!-- Name Field -->
-                        <div class="form-group">
-                            <label class="info-title control-label" for="name">Full Name <span>*</span></label>
-                            <input type="text" id="name" class="form-control unicase-form-control text-input" placeholder="Enter your full name" required>
+                                            <!-- already-registered-login -->
+                                            <div class="col-md-6 col-sm-6 already-registered-login">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <!-- Address Field -->
+                                                                <div class="form-group">
+                                                                    <label class="info-title control-label" for="address">Address <span>*</span></label>
+                                                                    <input type="text" id="address" name="address" class="form-control unicase-form-control text-input" placeholder="Enter your Address" required>
+                                                                </div>
+
+                                                                <!-- Country Field -->
+                                                                <div class="form-group">
+                                                                    <label class="info-title control-label" for="country">Country <span>*</span></label>
+                                                                    <select id="country" name="country" class="form-control unicase-form-control selectpicker" required>
+                                                                        <option value="">--Select options--</option>
+                                                                        <option value="vietnam">Vietnam</option>
+                                                                    </select>
+                                                                </div>
+
+                                                                <!-- State/Province Field -->
+                                                                <div class="form-group">
+                                                                    <label class="info-title control-label" for="state">State/Province <span>*</span></label>
+                                                                    <select id="state" name="state" class="form-control unicase-form-control selectpicker" required>
+                                                                        <option value="">--Select options--</option>
+                                                                        <option value="hochiminh">Ho Chi Minh City</option>
+                                                                        <option value="hanoi">Hanoi</option>
+                                                                        <option value="danang">Da Nang</option>
+                                                                        <option value="hue">Hue</option>
+                                                                        <option value="hai-phong">Hai Phong</option>
+                                                                        <option value="can-tho">Can Tho</option>
+                                                                        <option value="bac-ninh">Bac Ninh</option>
+                                                                    </select>
+                                                                </div>
+
+                                                                <!-- Zip/Postal Code Field -->
+                                                                <div class="form-group">
+                                                                    <label class="info-title control-label" for="zip">Zip/Postal Code</label>
+                                                                    <input type="text" id="zip" name="zip" class="form-control unicase-form-control text-input" placeholder="Enter zip/postal code" pattern="^\d{5}(-\d{4})?$">
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!-- already-registered-login -->
+                                        </div>
+                                    </div>
+                                    <!-- panel-body -->
+                                </div><!-- row -->
+                            </div>
+                            <!-- checkout-step-01 -->
+                        </div><!-- /.checkout-steps -->
+                    </div>
+                    <div class="col-md-4">
+                        <!-- checkout-progress-sidebar -->
+                        <div class="checkout-progress-sidebar">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="unicase-checkout-title">Your Order Summary</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <!-- Product Table -->
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Product</th>
+                                                    <th>Price</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Dynamic product rows -->
+                                                <c:forEach var="item" items="${cart.items}">
+                                                    <c:set var="totalPrice" value="${totalPrice + item.product.price * item.quantity}" />
+                                                    <tr>
+                                                        <td>${item.product.name} x ${item.quantity}</td>
+                                                        <td>${item.totalCurrencyFormat}</td>
+                                                       
+                                                    </tr>
+                                                </c:forEach>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td><strong>Total</strong></td>
+                                                    <td><strong><c:out value="${totalPrice}" /></strong></td>
+                                                     <input type="hidden" id="totalCurrency" name="totalCurrency" value="${totalPrice}">
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                         
+<div class="clearfix pull-right">
+    <button type="submit" class="btn-upper btn btn-primary">Apply Order</button>
+                        <!-- checkout-progress-sidebar : END -->
+                    </div>
+                                    </div>
+                                </div>
+                            </div>
+       
                         </div>
-
-                        <!-- Phone Number Field -->
-                        <div class="form-group">
-                            <label class="info-title control-label" for="phone">Phone Number <span>*</span></label>
-                            <input type="tel" id="phone" class="form-control unicase-form-control text-input" placeholder="Enter your phone number" required pattern="^[0-9]{10}$">
-                        </div>
-
-                        <!-- Email Field -->
-                        <div class="form-group">
-                            <label class="info-title control-label" for="email">Email Address <span>*</span></label>
-                            <input type="email" id="email" class="form-control unicase-form-control text-input" placeholder="Enter your email address" required>
-                        </div>
-
-                </td>
-            </tr>
-        </tbody>
-    </table>
-				
-				
-				</div>
-				<!-- guest-login -->
-
-				<!-- already-registered-login -->
-				<div class="col-md-6 col-sm-6 already-registered-login">
-				
-	<table class="table">
-		<thead>
-			<tr>
-			
-			</tr>
-		</thead>
-		<tbody>
-				<tr>
-					<td>
-					<!-- Country Field -->
-                        <div class="form-group">
-                            <label class="info-title control-label" for="country">Country <span>*</span></label>
-                            <select id="country" class="form-control unicase-form-control selectpicker" required>
-                                <option value="">--Select options--</option>
-                                <option value="india">India</option>
-                                <option value="sri-lanka">Sri Lanka</option>
-                                <option value="united-kingdom">United Kingdom</option>
-                                <option value="saudi-arabia">Saudi Arabia</option>
-                                <option value="united-arab-emirates">United Arab Emirates</option>
-                            </select>
-                        </div>
-                        
-                        <!-- State/Province Field -->
-                        <div class="form-group">
-                            <label class="info-title control-label" for="state">State/Province <span>*</span></label>
-                            <select id="state" class="form-control unicase-form-control selectpicker" required>
-                                <option value="">--Select options--</option>
-                                <option value="tamilnadu">Tamil Nadu</option>
-                                <option value="kerala">Kerala</option>
-                                <option value="andhra-pradesh">Andhra Pradesh</option>
-                                <option value="karnataka">Karnataka</option>
-                                <option value="madhya-pradesh">Madhya Pradesh</option>
-                            </select>
-                        </div>
-                        
-                        <!-- Zip/Postal Code Field -->
-                        <div class="form-group">
-                            <label class="info-title control-label" for="zip">Zip/Postal Code</label>
-                            <input type="text" id="zip" class="form-control unicase-form-control text-input" placeholder="Enter zip/postal code" pattern="^\d{5}(-\d{4})?$">
-                        </div>
-                        
-						<div class="clearfix pull-right">
-							<button type="submit" class="btn-upper btn btn-primary">APPLY COUPON</button>
-						</div>
-					</td>
-				</tr>
-		</tbody><!-- /tbody -->
-	</table><!-- /table -->
-					
-				</div>	
-				<!-- already-registered-login -->		
+                                           
 
 
-			</div>			
-		</div>
-		<!-- panel-body  -->
-
-	</div><!-- row -->
-</div>
-<!-- checkout-step-01  -->
-					   
-					  	
-					</div><!-- /.checkout-steps -->
-				</div>
-				<div class="col-md-4">
-		<!-- checkout-progress-sidebar -->
-<div class="checkout-progress-sidebar">
-    <div class="panel-group">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="unicase-checkout-title">Your Order Summary</h4>
-            </div>
-            <div class="panel-body">
-                <!-- Bảng sản phẩm và giá -->
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Product</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Dòng sản phẩm -->
-                      <c:forEach var="item" items="${cart.items}">
-                        <c:set var="totalPrice" value="${totalPrice + item.product.price * item.quantity}" />
-                        <tr>
-                            <td>${item.product.name} x ${item.quantity}</td>
-                            <td>${item.totalCurrencyFormat}</td>
-                            
-                        </tr>
-                        		</c:forEach>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td><strong>Total</strong></td>
-                           <td><strong><c:out value="${totalPrice}" /></strong></td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- checkout-progress-sidebar : END -->
-
-			</div><!-- /.row -->
-		</div><!-- /.checkout-box -->
-		<!-- ============================================== BRANDS CAROUSEL ============================================== -->
-<div id="brands-carousel" class="logo-slider wow fadeInUp">
-
-		<div class="logo-slider-inner">	
-			<div id="brand-slider" class="owl-carousel brand-slider custom-carousel owl-theme">
-				<div class="item m-t-15">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand1.png" src="assets\images\blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-
-				<div class="item m-t-10">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand2.png" src="assets\images\blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-
-				<div class="item">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand3.png" src="assets\images\blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-
-				<div class="item">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand4.png" src="assets\images\blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-
-				<div class="item">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand5.png" src="assets\images\blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-
-				<div class="item">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand6.png" src="assets\images\blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-
-				<div class="item">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand2.png" src="assets\images\blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-
-				<div class="item">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand4.png" src="assets\images\blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-
-				<div class="item">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand1.png" src="assets\images\blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-
-				<div class="item">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand5.png" src="assets\images\blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-		    </div><!-- /.owl-carousel #logo-slider -->
-		</div><!-- /.logo-slider-inner -->
-	
-</div><!-- /.logo-slider -->
-<!-- ============================================== BRANDS CAROUSEL : END ============================================== -->	</div><!-- /.container -->
+                </div><!-- /.row -->
+            </form>
+        </div><!-- /.checkout-box -->
+    </div><!-- /.container -->
 </div><!-- /.body-content -->
+
 <!-- ============================================================= FOOTER ============================================================= -->
 <!-- ============================================================= FOOTER ============================================================= -->
 <footer id="footer" class="footer color-bg">

@@ -44,11 +44,11 @@ public class GetOrderHashServlet extends HttpServlet {
 
 				if (order != null) {
 					// Nếu tìm thấy đơn hàng, trả về thông tin
-					out.println("{\"order_hash\": \"" + order.getOrder_hash() + "\"}");
+					out.println( order.getOrder_hash());
 				} else {
 					// Nếu không tìm thấy đơn hàng
 					response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404 Not Found
-					out.println("{\"error\": \"Order not found\"}");
+					out.println("Order not found");
 				}
 
 				out.flush();

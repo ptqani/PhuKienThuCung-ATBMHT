@@ -23,7 +23,7 @@
 							<li><a href="url?page=dashboard">Dashboard</a></li>
 							<li><a href="url?page=myoders">Orders</a></li>
 							<li><a href="url?page=address">Addresses</a></li>	
-									<li><a href="url?page=keygen">GenKey</a></li>
+									<li><a href="url?page=keygen">Generate Key</a></li>
 							<li><a href="url?page=chagepass">Change Password</a></li>
 							<li><a href="url?page=logout">Logout</a></li>
 						</ul>

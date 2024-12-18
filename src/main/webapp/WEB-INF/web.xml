@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
   <display-name>PhuKienThuCung</display-name>
-<servlet>
+  <servlet>
     <servlet-name>HomeServlet</servlet-name>
     <servlet-class>org.apache.catalina.servlets.DefaultServlet</servlet-class>
     <init-param>
-        <param-name>debug</param-name>
-        <param-value>0</param-value>
+      <param-name>debug</param-name>
+      <param-value>0</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
-</servlet>
+  </servlet>
 
-<servlet-mapping>
+  <servlet-mapping>
     <servlet-name>HomeServlet</servlet-name>
     <url-pattern>/assets/*</url-pattern>
-</servlet-mapping>
-
+  </servlet-mapping>
   <!-- Define a custom 404 error page -->
-  <error-page>
-    <error-code>404</error-code>
-    <location>/error</location> <!-- Path to your custom 404 page -->
-  </error-page>
+<!--  <error-page>-->
+<!--    <error-code>404</error-code>-->
+<!--    <location>/error</location> &lt;!&ndash; Path to your custom 404 page &ndash;&gt;-->
+<!--  </error-page>-->
 </web-app>

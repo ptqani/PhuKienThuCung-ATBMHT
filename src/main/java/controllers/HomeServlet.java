@@ -52,7 +52,7 @@ public class HomeServlet extends HttpServlet {
 			List<Category> listCategory = categoryDAO.getAllCategories();
 			request.setAttribute("listCategory", listCategory);
 			
-			request.getRequestDispatcher("/WEB-INF/home.jsp").forward(request, response);
+			request.getRequestDispatcher("home.jsp").forward(request, response);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 

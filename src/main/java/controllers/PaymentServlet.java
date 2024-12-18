@@ -22,9 +22,7 @@ public class PaymentServlet extends HttpServlet {
         Database dao = new Database();
         // Lấy thông tin từ request
         String orderId = request.getParameter("orderId");
-        String email = request.getParameter("email");
         Order order = null; // Lấy thông tin đơn hàng từ CSDL
-        order.setEmail_address(email);
         try {
             order = dao.getOrderById(Integer.parseInt(orderId));
         } catch (SQLException e) {

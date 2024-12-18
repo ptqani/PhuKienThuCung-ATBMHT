@@ -48,7 +48,7 @@ public class PaymentServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 sendCancellationEmail(order); // Gửi email thông báo hủy đơn hàng
-                response.sendRedirect("order-failed.jsp");
+                response.sendRedirect("/WEB-INF/order-failed.jsp");
             } else {
                 // Nếu mã hash giống nhau, tiến hành thanh toán
                 order.setStatus("Complete");
@@ -60,10 +60,10 @@ public class PaymentServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 sendSuccessEmail(order); // Gửi email thông báo thanh toán thành công
-                response.sendRedirect("payment-success.jsp");
+                response.sendRedirect("/WEB-INF/payment-success.jsp");
             }
         } else {
-            response.sendRedirect("order-not-found.jsp"); // Nếu không tìm thấy đơn hàng
+            response.sendRedirect("/WEB-INF/order-not-found.jsp"); // Nếu không tìm thấy đơn hàng
         }
     }
 

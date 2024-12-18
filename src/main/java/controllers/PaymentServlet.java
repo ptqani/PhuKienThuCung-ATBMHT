@@ -67,20 +67,34 @@ public class PaymentServlet extends HttpServlet {
         }
     }
 
-    private void sendCancellationEmail(Order order) {
+    public void sendCancellationEmail(Order order) {
         // Gửi email thông báo hủy đơn hàng
         String to = order.getEmail_address();
+        System.out.println(to);
         String subject = "Đơn hàng bị hủy";
-        String message = "Đơn hàng #" + order.getEmail_address() + " đã bị hủy vì thông tin thay đổi.";
+        String message = "Đơn hàng #" + order.getOrder_id()+ " đã bị hủy vì có sự thay đổi bất hợp pháp.";
         EmailUtil.sendEmail(to, subject, message); // Gọi phương thức sendEmail từ EmailUtil
     }
 
-    private void sendSuccessEmail(Order order) {
-        // Gửi email thông báo thanh toán thành công
+    public void sendSuccessEmail(Order order) {
+        // Gửi email thông báo thanh toán thành công cùng với chi tiết hóa đơn
         String to = order.getEmail_address();
-        String subject = "Thanh toán thành công";
-        String message = "Cảm ơn bạn đã thanh toán đơn hàng #" + order.getOrder_id() + ". Chúng tôi đã nhận được thanh toán của bạn.";
+        String subject = "Thanh toán thành công - Hóa đơn #" + order.getOrder_id();
+
+        // Tạo nội dung email chứa thông tin hóa đơn
+        String message = "Cảm ơn bạn đã thanh toán đơn hàng #" + order.getOrder_id() + ". Chúng tôi đã nhận được thanh toán của bạn.\n\n";
+        message += "Thông tin đơn hàng:\n";
+        message += "Tên người nhận: " + order.getName() + "\n";
+        message += "Số điện thoại: " + order.getPhone() + "\n";
+        message += "Địa chỉ giao hàng: " + order.getShipping_address() + "\n";
+        message += "Tổng giá trị đơn hàng: " + order.getTotal_price() + " VNĐ\n";
+        // Thêm thông báo cám ơn và thông tin thanh toán thành công
+        message += "Chúng tôi rất cảm ơn bạn đã tin tưởng và sử dụng dịch vụ của chúng tôi.\n";
+        message += "Mọi thắc mắc vui lòng liên hệ với chúng tôi qua email này.\n";
+
+        // Gửi email
         EmailUtil.sendEmail(to, subject, message); // Gọi phương thức sendEmail từ EmailUtil
     }
+
 
 }

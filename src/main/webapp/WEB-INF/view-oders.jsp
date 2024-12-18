@@ -52,11 +52,6 @@
 <!-- Order Details Section -->
 <div class="order-details">
     <h3>Order Received</h3>
-    <form action="downloadOders" method="get">
-        <input type="hidden" name="orderId" value="${order.order_id}">
-        <button type="submit">Tải xuống đơn hàng</button>
-    </form>
-
     <!-- Order Information -->
     <div class="address">
         <form action="verification-form" method="post">

@@ -10,11 +10,10 @@ public class EmailUtil {
         String from = "vanluan0903@gmail.com";
         String password = "hgov myiy ltpd ltqh";
 
-        Properties properties = System.getProperties();
-        properties.setProperty("mail.smtp.host", host);
-        properties.setProperty("mail.smtp.port", "587");
-        properties.setProperty("mail.smtp.starttls.enable", "true");
-
+        Properties properties = new Properties();
+        properties.put("mail.smtp.host", host);
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
         Session session = Session.getInstance(properties, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(from, password);

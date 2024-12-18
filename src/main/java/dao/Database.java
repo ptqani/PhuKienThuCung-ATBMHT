@@ -762,13 +762,12 @@ public class Database {
 		String sql = "UPDATE orders SET status = ? WHERE order_id = ?";
 		try (Connection conn = getConnection();
 			 PreparedStatement stmt = conn.prepareStatement(sql)) {
-			stmt.setString(1, status);
-			stmt.setInt(2, orderId);
-			stmt.executeUpdate();
+			// Gán giá trị cho các tham số trong câu lệnh SQL
+			stmt.setString(1, status);   // Tham số đầu tiên là trạng thái
+			stmt.setInt(2, orderId);     // Tham số thứ hai là mã đơn hàng
+			stmt.executeUpdate();        // Thực thi câu lệnh cập nhật
 		}
 	}
-
-
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException, UnsupportedEncodingException {
 	

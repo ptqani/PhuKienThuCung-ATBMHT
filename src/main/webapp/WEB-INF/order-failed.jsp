@@ -12,7 +12,7 @@
     <h1>Đơn hàng của bạn đã bị hủy</h1>
     <p>Rất tiếc, thông tin đơn hàng của bạn đã không hợp lệ. Đơn hàng đã bị hủy.</p>
     <p>Vui lòng kiểm tra lại thông tin và thử lại.</p>
-    <a href="home.jsp" class="btn-back">Quay lại Trang Chủ</a>
+    <a href="/WEB-INF/home.jsp" class="btn-back">Quay lại Trang Chủ</a>
 </div>
 </body>
 </html>

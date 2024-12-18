@@ -22,7 +22,9 @@ public class PaymentServlet extends HttpServlet {
         Database dao = new Database();
         // Lấy thông tin từ request
         String orderId = request.getParameter("orderId");
+        String email = request.getParameter("email");
         Order order = null; // Lấy thông tin đơn hàng từ CSDL
+        order.setEmail_address(email);
         try {
             order = dao.getOrderById(Integer.parseInt(orderId));
         } catch (SQLException e) {
@@ -48,7 +50,7 @@ public class PaymentServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 sendCancellationEmail(order); // Gửi email thông báo hủy đơn hàng
-                response.sendRedirect("/WEB-INF/order-failed.jsp");
+                request.getRequestDispatcher("/WEB-INF/order-failed.jsp").forward(request, response);
             } else {
                 // Nếu mã hash giống nhau, tiến hành thanh toán
                 order.setStatus("Complete");
@@ -60,10 +62,10 @@ public class PaymentServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 sendSuccessEmail(order); // Gửi email thông báo thanh toán thành công
-                response.sendRedirect("/WEB-INF/payment-success.jsp");
+                request.getRequestDispatcher("/WEB-INF/payment-success.jsp").forward(request, response);
             }
         } else {
-            response.sendRedirect("/WEB-INF/order-not-found.jsp"); // Nếu không tìm thấy đơn hàng
+            request.getRequestDispatcher("/WEB-INF/order-not-found.jsp").forward(request,response); // Nếu không tìm thấy đơn hàng
         }
     }
 

@@ -122,6 +122,7 @@
     <div class="payment-button">
         <form action="process-payment" method="post">
             <input type="hidden" name="orderId" value="${order.order_id}">
+            <input type="hidden" name="emailAddress" value="${order.email_address}">
             <button type="submit" id="payment-button" class="btn btn-primary" disabled>Thanh toán</button>
         </form>
     </div>

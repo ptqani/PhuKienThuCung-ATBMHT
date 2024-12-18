@@ -18,7 +18,7 @@
 <div class="message-container">
     <h1>Thanh Toán Thành Công</h1>
     <p>Cảm ơn bạn đã thanh toán đơn hàng. Chúng tôi đã nhận được thanh toán của bạn và đang xử lý.</p>
-    <a href="home.jsp" class="btn-back">Quay lại Trang Chủ</a>
+    <a href="/WEB-INF/home.jsp" class="btn-back">Quay lại Trang Chủ</a>
 </div>
 </body>
 </html>

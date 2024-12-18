@@ -19,7 +19,7 @@
     <h1>Đơn Hàng Không Tìm Thấy</h1>
     <p>Rất tiếc, không tìm thấy thông tin đơn hàng với ID bạn đã nhập.</p>
     <p>Vui lòng kiểm tra lại và thử lại.</p>
-    <a href="home.jsp" class="btn-back">Quay lại Trang Chủ</a>
+    <a href="/WEB-INF/home.jsp" class="btn-back">Quay lại Trang Chủ</a>
 </div>
 </body>
 </html>

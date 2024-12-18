@@ -17,20 +17,35 @@ public class ReportKeyServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int userId = Integer.parseInt(request.getParameter("userId"));
 
-        try {
-            String updateQuery = "UPDATE `key` SET end_time = NOW(), status = 'inactive' WHERE iduser = ? AND status = 'active' AND end_time IS NULL";
-            try (Connection conn = jdbcUtil.getConnection();
-                 PreparedStatement stmt = conn.prepareStatement(updateQuery)) {
-                stmt.setInt(1, userId);
-                stmt.executeUpdate();
+        try (Connection conn = jdbcUtil.getConnection()) {
+
+            // 1. Vô hiệu hóa key hiện tại
+            String updateQuery = "UPDATE `key` SET end_time = NOW(), status = 'inactive' WHERE iduser = ? AND status = 'active'";
+            try (PreparedStatement updateStmt = conn.prepareStatement(updateQuery)) {
+                updateStmt.setInt(1, userId);
+                updateStmt.executeUpdate();
             }
 
+            // 2. Kiểm tra xem user có key "active" chưa
+            String checkActiveKeyQuery = "SELECT COUNT(*) FROM `key` WHERE iduser = ? AND status = 'active'";
+            try (PreparedStatement checkStmt = conn.prepareStatement(checkActiveKeyQuery)) {
+                checkStmt.setInt(1, userId);
+                var rs = checkStmt.executeQuery();
+                rs.next();
+                int activeKeyCount = rs.getInt(1);
+
+                // Nếu đã có key active, không cho tạo thêm key
+                if (activeKeyCount > 0) {
+                    response.getWriter().println("Error: User already has an active key. Deactivate it before generating a new one.");
+                    return;
+                }
+            }
+            // 3. Tạo key mới
             String createKeyQuery = "INSERT INTO `key` (iduser, publickey, created_day, end_time, status) " +
                     "VALUES (?, UUID(), NOW(), NULL, 'active')";
-            try (Connection conn = jdbcUtil.getConnection();
-                 PreparedStatement stmt = conn.prepareStatement(createKeyQuery)) {
-                stmt.setInt(1, userId);
-                stmt.executeUpdate();
+            try (PreparedStatement createStmt = conn.prepareStatement(createKeyQuery)) {
+                createStmt.setInt(1, userId);
+                createStmt.executeUpdate();
             }
 
             response.getWriter().println("Key reported as lost, deactivated successfully. New key generated and activated.");

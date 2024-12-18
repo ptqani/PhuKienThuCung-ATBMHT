@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <meta name="keywords" content="MediaCenter, Template, eCommerce">
     <meta name="robots" content="all">
-    <title>Change Password</title>
+    <title>Thông tin key</title>
 
 <%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/key.css">--%>
     <!-- Bootstrap Core CSS -->
@@ -84,7 +84,7 @@
                     </div>
                     <div class="panel-body">
                         <form action="report-key" method="post">
-                            <input type="hidden" name=UserId" value="${user.id}">
+                            <input type="hidden" name="userId" value="${user.id}">
                         
                             <p>Bạn đã mất key? Nếu bạn muốn xóa public key cũ và tạo lại key mới, vui lòng báo ở đây:</p>
                             <button type="submit" class="btn btn-danger btn-lg btn-block">Báo Mất Key</button>

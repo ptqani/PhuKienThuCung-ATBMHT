@@ -97,7 +97,7 @@ public class URL extends HttpServlet {
 		Database dao = new Database();
 		String publickey = dao.getPublicKeyByUserId(userId);
 		req.setAttribute("key", publickey);
-		req.getRequestDispatcher("/WEB-INF/GenKey.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/genKey.jsp").forward(req, resp);
 
 	}
 

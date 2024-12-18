@@ -72,7 +72,8 @@ public class PaymentServlet extends HttpServlet {
         String to = order.getEmail_address();
         System.out.println(to);
         String subject = "Đơn hàng bị hủy";
-        String message = "Đơn hàng #" + order.getOrder_id()+ " đã bị hủy vì có sự thay đổi bất hợp pháp.";
+        String message = "Đơn hàng #" + order.getOrder_id()+ " đã bị hủy vì có sự thay đổi bất hợp pháp.Chúng tôi" +
+                " xin lỗi vì sự bất tiện này";
         EmailUtil.sendEmail(to, subject, message); // Gọi phương thức sendEmail từ EmailUtil
     }
 

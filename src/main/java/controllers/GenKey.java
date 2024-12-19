@@ -24,6 +24,20 @@ public class GenKey extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            // Lấy user từ session
+            User user = (User) req.getSession().getAttribute("user");
+            int userId = user.getId();
+
+            // Kiểm tra nếu user đã có khóa đang ở trạng thái "active"
+            Database dao = new Database();
+            boolean hasActiveKey = dao.hasActiveKey(userId);
+
+            if (hasActiveKey) {
+                // Nếu có khóa active, trả về thông báo cho người dùng
+                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Tài khoan đã được tạo key.");
+                return;
+            }
+
             // Khởi tạo KeyPairGenerator cho RSA
             int keySize = 2048; // Kích thước khóa
             KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
@@ -37,14 +51,14 @@ public class GenKey extends HttpServlet {
 
             // Lấy khóa công khai và riêng tư dưới dạng Base64
             String publicKeyBase64 = Base64.getEncoder().encodeToString(keyPair.getPublic().getEncoded());
-            
-            // Lấy user từ session
-            User user = (User) req.getSession().getAttribute("user");
-            int userId = user.getId();
 
-            // Cập nhật khóa công khai vào cơ sở dữ liệu
-            Database dao = new Database();
+            // Cập nhật khóa công khai vào cơ sở dữ liệu với trạng thái "active"
             boolean isUpdated = dao.upsertKey(userId, publicKeyBase64, "active");
+
+            if (!isUpdated) {
+                resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to update the public key.");
+                return;
+            }
 
             // Lấy khóa riêng tư dưới dạng Base64
             String privateKeyBase64 = Base64.getEncoder().encodeToString(keyPair.getPrivate().getEncoded());
@@ -59,9 +73,10 @@ public class GenKey extends HttpServlet {
                 os.write(privateKeyBase64.getBytes());
                 os.flush(); // Đảm bảo dữ liệu được gửi hết
             }
-          
-			String publickey = dao.getPublicKeyByUserId(userId);
-			req.setAttribute("key", publickey);
+
+            // Truyền khóa công khai vào request để hiển thị cho người dùng
+            String publickey = dao.getPublicKeyByUserId(userId);
+            req.setAttribute("key", publickey);
 
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -72,4 +87,3 @@ public class GenKey extends HttpServlet {
         }
     }
 }
-

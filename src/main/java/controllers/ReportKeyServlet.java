@@ -30,6 +30,18 @@ public class ReportKeyServlet extends HttpServlet {
 
             // 1. Vô hiệu hóa key hiện tại (cập nhật trạng thái thành 'inactive')
             try (Connection conn = jdbcUtil.getConnection()) {
+                // Xóa key cũ có trạng thái 'inactive' (nếu có) trước khi tạo key mới
+                String deleteInactiveQuery = "DELETE FROM `key` WHERE iduser = ? AND status = 'inactive'";
+                try (PreparedStatement deleteStmt = conn.prepareStatement(deleteInactiveQuery)) {
+                    deleteStmt.setInt(1, userId);
+                    int rowsDeleted = deleteStmt.executeUpdate();
+
+                    if (rowsDeleted > 0) {
+                        System.out.println("Đã xóa khóa inactive cũ.");
+                    }
+                }
+
+                // Cập nhật trạng thái khóa 'active' thành 'inactive'
                 String updateQuery = "UPDATE `key` SET end_time = NOW(), status = 'inactive' WHERE iduser = ? AND status = 'active'";
                 try (PreparedStatement updateStmt = conn.prepareStatement(updateQuery)) {
                     updateStmt.setInt(1, userId);
@@ -68,11 +80,10 @@ public class ReportKeyServlet extends HttpServlet {
 
             // 5. Chuyển hướng về trang genkey
             request.getRequestDispatcher("/WEB-INF/genKey.jsp").forward(request, response);
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Không tìm thấy thuật toán RSA: " + e.getMessage(), e);
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException("Lỗi khi xử lý cơ sở dữ liệu: " + e.getMessage(), e);
+
+        } catch (NoSuchAlgorithmException | SQLException | IOException | ServletException | ClassNotFoundException e) {
+            // Xử lý lỗi chung
+            throw new RuntimeException("Lỗi trong quá trình xử lý: " + e.getMessage(), e);
         }
     }
 }
-

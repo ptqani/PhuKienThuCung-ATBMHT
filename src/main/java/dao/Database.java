@@ -363,60 +363,28 @@ public class Database {
 				+ "VALUES (?, ?, CURRENT_TIMESTAMP, ?) "
 				+ "ON DUPLICATE KEY UPDATE publickey = ?, status = ?";
 
-		// Nếu trạng thái là 'active', kiểm tra và cập nhật trạng thái 'inactive' cho khóa trước đó
-		if ("active".equals(status)) {
-			// Cập nhật trạng thái 'inactive' cho các khóa active trước đó của người dùng
-			String updateActiveStatusQuery = "UPDATE `key` SET status = 'inactive' WHERE iduser = ? AND status = 'active'";
+		try (Connection connection = getConnection()) {
+			try (PreparedStatement preparedStatement = connection.prepareStatement(upsertQuery)) {
+				// Set giá trị khi chèn mới
+				preparedStatement.setInt(1, userId); // Set iduser
+				preparedStatement.setString(2, publicKey); // Set publickey
+				preparedStatement.setString(3, status); // Set status khi chèn mới
 
-			try (Connection connection = getConnection()) {
-				// Cập nhật trạng thái 'inactive' cho khóa cũ nếu có
-				try (PreparedStatement updateStatement = connection.prepareStatement(updateActiveStatusQuery)) {
-					updateStatement.setInt(1, userId);
-					updateStatement.executeUpdate();
-				}
+				// Cập nhật giá trị khi đã tồn tại bản ghi
+				preparedStatement.setString(4, publicKey); // Set publickey cho cập nhật
+				preparedStatement.setString(5, status); // Set status cho cập nhật
 
-				// Thực hiện câu lệnh upsert để chèn khóa mới hoặc cập nhật khóa hiện tại
-				try (PreparedStatement preparedStatement = connection.prepareStatement(upsertQuery)) {
-					preparedStatement.setInt(1, userId); // Set iduser
-					preparedStatement.setString(2, publicKey); // Set publickey
-					preparedStatement.setString(3, status); // Set status khi chèn mới
+				// Thực thi câu lệnh để chèn hoặc cập nhật dữ liệu
+				int result = preparedStatement.executeUpdate();
 
-					// Cập nhật giá trị khi đã tồn tại bản ghi
-					preparedStatement.setString(4, publicKey); // Set publickey cho cập nhật
-					preparedStatement.setString(5, status); // Set status cho cập nhật
-
-					// Thực thi câu lệnh để chèn hoặc cập nhật dữ liệu
-					int result = preparedStatement.executeUpdate();
-
-					return result > 0; // Nếu có ít nhất một dòng bị ảnh hưởng, trả về true
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new SQLException("Cập nhật hoặc chèn khóa không thành công: " + e.getMessage());
+				return result > 0; // Nếu có ít nhất một dòng bị ảnh hưởng, trả về true
 			}
-		} else {
-			// Nếu trạng thái không phải 'active', chỉ cần chèn hoặc cập nhật khóa mà không cần kiểm tra
-			try (Connection connection = getConnection()) {
-				try (PreparedStatement preparedStatement = connection.prepareStatement(upsertQuery)) {
-					preparedStatement.setInt(1, userId); // Set iduser
-					preparedStatement.setString(2, publicKey); // Set publickey
-					preparedStatement.setString(3, status); // Set status khi chèn mới
-
-					// Cập nhật giá trị khi đã tồn tại bản ghi
-					preparedStatement.setString(4, publicKey); // Set publickey cho cập nhật
-					preparedStatement.setString(5, status); // Set status cho cập nhật
-
-					// Thực thi câu lệnh để chèn hoặc cập nhật dữ liệu
-					int result = preparedStatement.executeUpdate();
-
-					return result > 0; // Nếu có ít nhất một dòng bị ảnh hưởng, trả về true
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new SQLException("Cập nhật hoặc chèn khóa không thành công: " + e.getMessage());
-			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SQLException("Cập nhật hoặc chèn khóa không thành công: " + e.getMessage());
 		}
 	}
+
 
 
 	// Phương thức lấy một sản phẩm theo ID
@@ -805,7 +773,23 @@ public class Database {
 			stmt.setInt(2, orderId);     // Tham số thứ hai là mã đơn hàng
 			stmt.executeUpdate();        // Thực thi câu lệnh cập nhật
 		}
+
+
 	}
+	public boolean hasActiveKey(int userId) throws ClassNotFoundException, SQLException {
+		String query = "SELECT COUNT(*) FROM `key` WHERE iduser = ? AND status = 'active'";
+		try (Connection connection = getConnection();
+			 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			preparedStatement.setInt(1, userId);
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				if (resultSet.next()) {
+					return resultSet.getInt(1) > 0;
+				}
+			}
+		}
+		return false;
+	}
+
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException, UnsupportedEncodingException {
 	

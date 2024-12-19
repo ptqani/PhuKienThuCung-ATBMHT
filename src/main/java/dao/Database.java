@@ -358,28 +358,32 @@ public class Database {
 	}
 
 	public boolean upsertKey(int userId, String publicKey, String status) throws ClassNotFoundException, SQLException {
-	    String upsertQuery = "INSERT INTO `key` (iduser, publickey, created_day, status) "
-	            + "VALUES (?, ?, CURRENT_TIMESTAMP, ?) "
-	            + "ON DUPLICATE KEY UPDATE publickey = ?, status = ?";  // Cập nhật cả publickey và status khi đã tồn tại
+		String upsertQuery = "INSERT INTO `key` (iduser, publickey, created_day, status) "
+				+ "VALUES (?, ?, CURRENT_TIMESTAMP, ?) "
+				+ "ON DUPLICATE KEY UPDATE publickey = ?, status = ?";  // Thêm cột updated_day để cập nhật thời gian khi cập nhật
 
-	    try (Connection connection = getConnection();
-	         PreparedStatement preparedStatement = connection.prepareStatement(upsertQuery)) {
+		try (Connection connection = getConnection();
+			 PreparedStatement preparedStatement = connection.prepareStatement(upsertQuery)) {
 
-	        preparedStatement.setInt(1, userId); // Set iduser
-	        preparedStatement.setString(2, publicKey); // Set publickey
-	        preparedStatement.setString(3, status); // Set status khi chèn mới
-	        preparedStatement.setString(4, publicKey); // Set publickey cho cập nhật
-	        preparedStatement.setString(5, status); // Set status cho cập nhật
+			// Set các giá trị vào PreparedStatement
+			preparedStatement.setInt(1, userId); // Set iduser
+			preparedStatement.setString(2, publicKey); // Set publickey
+			preparedStatement.setString(3, status); // Set status khi chèn mới
 
-	        // Thực thi câu lệnh để chèn hoặc cập nhật dữ liệu
-	        int result = preparedStatement.executeUpdate();
+			// Cập nhật giá trị khi đã tồn tại bản ghi
+			preparedStatement.setString(4, publicKey); // Set publickey cho cập nhật
+			preparedStatement.setString(5, status); // Set status cho cập nhật
 
-	        return result > 0; // Nếu có ít nhất một dòng bị ảnh hưởng, trả về true
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        throw new SQLException("Cập nhật hoặc chèn khóa không thành công: " + e.getMessage());
-	    }
+			// Thực thi câu lệnh để chèn hoặc cập nhật dữ liệu
+			int result = preparedStatement.executeUpdate();
+
+			return result > 0; // Nếu có ít nhất một dòng bị ảnh hưởng, trả về true
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SQLException("Cập nhật hoặc chèn khóa không thành công: " + e.getMessage());
+		}
 	}
+
 
 	// Phương thức lấy một sản phẩm theo ID
 	public Product getProductById(String itemId) throws ClassNotFoundException, SQLException {

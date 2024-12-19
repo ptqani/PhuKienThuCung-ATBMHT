@@ -29,11 +29,16 @@ public class ReportKeyServlet extends HttpServlet {
             int userId = user.getId();
 
             // 1. Vô hiệu hóa key hiện tại
+            // 1. Vô hiệu hóa key hiện tại
             try (Connection conn = jdbcUtil.getConnection()) {
                 String updateQuery = "UPDATE `key` SET end_time = NOW(), status = 'inactive' WHERE iduser = ? AND status = 'active'";
                 try (PreparedStatement updateStmt = conn.prepareStatement(updateQuery)) {
                     updateStmt.setInt(1, userId);
-                    updateStmt.executeUpdate();
+                    int rowsUpdated = updateStmt.executeUpdate();
+
+                    if (rowsUpdated == 0) {
+                        throw new SQLException("Không tìm thấy key active để vô hiệu hóa.");
+                    }
                 }
             }
 

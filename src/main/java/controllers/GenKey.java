@@ -44,14 +44,14 @@ public class GenKey extends HttpServlet {
 
             // Cập nhật khóa công khai vào cơ sở dữ liệu
             Database dao = new Database();
-            boolean isUpdated = dao.upsertKey(userId, publicKeyBase64, "Created");
+            boolean isUpdated = dao.upsertKey(userId, publicKeyBase64, "active");
 
             // Lấy khóa riêng tư dưới dạng Base64
             String privateKeyBase64 = Base64.getEncoder().encodeToString(keyPair.getPrivate().getEncoded());
 
             // Đặt headers để trình duyệt xử lý tải file
             resp.setContentType("application/octet-stream");
-            resp.setHeader("Content-Disposition", "attachment;filename=privateKey.txt");
+            resp.setHeader("Content-Disposition", "attachment;filename=D:/privateKey.txt");
             resp.setContentLength(privateKeyBase64.length());
 
             // Ghi nội dung file ra output stream

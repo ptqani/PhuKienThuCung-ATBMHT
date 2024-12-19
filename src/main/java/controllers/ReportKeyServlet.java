@@ -29,7 +29,6 @@ public class ReportKeyServlet extends HttpServlet {
             int userId = user.getId();
 
             // 1. Vô hiệu hóa key hiện tại
-            // 1. Vô hiệu hóa key hiện tại
             try (Connection conn = jdbcUtil.getConnection()) {
                 String updateQuery = "UPDATE `key` SET end_time = NOW(), status = 'inactive' WHERE iduser = ? AND status = 'active'";
                 try (PreparedStatement updateStmt = conn.prepareStatement(updateQuery)) {
@@ -69,6 +68,7 @@ public class ReportKeyServlet extends HttpServlet {
 
             // 5. Chuyển hướng về trang genkey
             request.getRequestDispatcher("/WEB-INF/genKey.jsp").forward(request,response);
+//            response.sendRedirect("/WEB-INF/genKey.jsp");
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("Không tìm thấy thuật toán RSA: " + e.getMessage(), e);
         } catch (SQLException | ClassNotFoundException e) {

@@ -360,7 +360,7 @@ public class Database {
 	public boolean upsertKey(int userId, String publicKey, String status) throws ClassNotFoundException, SQLException {
 		String upsertQuery = "INSERT INTO `key` (iduser, publickey, created_day, status) "
 				+ "VALUES (?, ?, CURRENT_TIMESTAMP, ?) "
-				+ "ON DUPLICATE KEY UPDATE publickey = ?, status = ?";  // Thêm cột updated_day để cập nhật thời gian khi cập nhật
+				+ "ON DUPLICATE KEY UPDATE publickey = ?, status = ?";  // Không sử dụng updated_day
 
 		try (Connection connection = getConnection();
 			 PreparedStatement preparedStatement = connection.prepareStatement(upsertQuery)) {
@@ -383,8 +383,6 @@ public class Database {
 			throw new SQLException("Cập nhật hoặc chèn khóa không thành công: " + e.getMessage());
 		}
 	}
-
-
 	// Phương thức lấy một sản phẩm theo ID
 	public Product getProductById(String itemId) throws ClassNotFoundException, SQLException {
 		Product product = null;

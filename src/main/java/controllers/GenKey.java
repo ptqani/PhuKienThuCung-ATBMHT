@@ -51,7 +51,7 @@ public class GenKey extends HttpServlet {
 
             // Đặt headers để trình duyệt xử lý tải file
             resp.setContentType("application/octet-stream");
-            resp.setHeader("Content-Disposition", "attachment;filename=D:/privateKey.txt");
+            resp.setHeader("Content-Disposition", "attachment;filename=privateKey.txt");
             resp.setContentLength(privateKeyBase64.length());
 
             // Ghi nội dung file ra output stream

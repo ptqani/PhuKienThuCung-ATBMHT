@@ -56,7 +56,7 @@ public class ReportKeyServlet extends HttpServlet {
 
             // 4. Gửi khóa riêng tư về cho người dùng
             response.setContentType("application/octet-stream");
-            response.setHeader("Content-Disposition", "attachment;filename=D:/privateKey.txt");
+            response.setHeader("Content-Disposition", "attachment;filename=privateKey.txt");
             response.setContentLength(privateKeyBase64.length());
 
             response.getOutputStream().write(privateKeyBase64.getBytes());
